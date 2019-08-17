@@ -102,7 +102,7 @@ First, let's create a script to read Ethereum account balance:
 $ cat get_balance.js
 const {argv} = require("process");
 const Web3 = require("web3");
-const rpcURL = "http://127.0.0.1:8214"
+const rpcURL = "http://127.0.0.1:8214";
 const web3 = new Web3(rpcURL);
 
 const account = argv[2];
@@ -141,7 +141,7 @@ $ cat send_transaction.js
 const {argv} = require("process");
 const Web3 = require("web3");
 const {Transaction} = require("ethereumjs-tx");
-const rpcURL = "http://127.0.0.1:8214"
+const rpcURL = "http://127.0.0.1:8214";
 const web3 = new Web3(rpcURL);
 
 // Ethereum address is 0x997f0b88b4e1203661e176029fe32cfdf7c388be
@@ -305,7 +305,7 @@ Recall the our `SimpleStorage` module has a instance variable stored in the stor
 $ cat get_storage_at.js
 const {argv} = require("process");
 const Web3 = require("web3");
-const rpcURL = "http://127.0.0.1:8214"
+const rpcURL = "http://127.0.0.1:8214";
 const web3 = new Web3(rpcURL);
 
 const contractAddress = argv[2];
@@ -337,7 +337,7 @@ const {readFileSync, writeFileSync} = require("fs");
 const {argv} = require("process");
 const Web3 = require("web3");
 const {Transaction} = require("ethereumjs-tx");
-const rpcURL = "http://127.0.0.1:8214"
+const rpcURL = "http://127.0.0.1:8214";
 const web3 = new Web3(rpcURL);
 
 const privateKey = "002c03c0cd7537d80e47456c33102593f4ae295650c21344b9e11ce9071b988f";
