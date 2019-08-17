@@ -1,0 +1,9 @@
+[submodule "deps/parity"]
+	path = deps/parity
+	url = https://github.com/paritytech/parity-ethereum
+[submodule "deps/flatcc"]
+	path = deps/flatcc
+	url = https://github.com/dvidelabs/flatcc
+[submodule "deps/secp256k1"]
+	path = deps/secp256k1
+	url = https://github.com/nervosnetwork/secp256k1
