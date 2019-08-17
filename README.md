@@ -1,10 +1,10 @@
 # polyjuice
 
-Polyjuice is a layer 2 solution that provides a Web3 compatible interface on top of [Nervos CKB](https://github.com/nervosnetwork/ckb). The design goal here is 95%+ compatible with existing Ethereum solution, so that your Solidity smart contracts and tools for Ethereum could work directly on top of Nervos CKB, while enjoying the following benefit:
+Polyjuice is a layer 2 solution that provides a Web3 compatible interface on top of [Nervos CKB](https://github.com/nervosnetwork/ckb). The design goal here is 95%+ compatible with existing Ethereum solution, so that your Solidity smart contracts and tools for Ethereum could work directly on top of Nervos CKB, while enjoying the following benefits:
 
 * A state rent model that everyone needs to pay for their own storage
 * An EVM that could be upgraded with new features without needing hardforks
-* A modern blockchain that do not suffer from Ethereum's legacies.
+* A modern blockchain that does not suffer from Ethereum's legacies.
 
 Notice this project is still in very early phases, bugs can be expected, and many features are still missing. We will bring it to the day where you can use it in production but that's not today :P If you have any questions or run into any issues, feel free to let us know.
 
@@ -17,7 +17,7 @@ Here we provide a short tutorial performing the following operations on a polyju
 * Calling contract
 * Reading storage data from a contract
 
-Throughout the tutorial, we will work with the following 2 Ethereum account:
+Throughout the tutorial, we will work with the following 2 Ethereum accounts:
 
 * Account A private key: 002c03c0cd7537d80e47456c33102593f4ae295650c21344b9e11ce9071b988f
 * Account A address: 0x997f0b88b4e1203661e176029fe32cfdf7c388be
