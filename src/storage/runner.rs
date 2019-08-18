@@ -211,7 +211,7 @@ impl<'a> Runner<'a> {
         };
         if target_cell
             .is_lack_of_capacity()
-            .map_err(|_| Error::MalformedData("Capacity errof".to_string()))?
+            .map_err(|_| Error::MalformedData("Capacity error".to_string()))?
         {
             return Err(Error::MalformedData(
                 format!(
