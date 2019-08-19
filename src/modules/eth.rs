@@ -1,4 +1,5 @@
 use crate::{
+    modules::TransactionCall,
     storage::{
         serialize_u64, BlockNumber, EthAddress, EthTransaction, Loader, Runner, TransactionReceipt,
     },
@@ -9,6 +10,7 @@ use jsonrpc_core::{Error, Result};
 use jsonrpc_derive::rpc;
 use numext_fixed_hash::H256;
 use numext_fixed_uint::U256;
+use std::convert::TryFrom;
 use std::sync::Arc;
 
 #[rpc]
@@ -39,6 +41,9 @@ pub trait EthRpc {
         position: U256,
         block_number: Option<String>,
     ) -> Result<H256>;
+
+    #[rpc(name = "eth_call")]
+    fn eth_call(&self, call: TransactionCall, block_number: Option<String>) -> Result<JsonBytes>;
 }
 
 pub struct EthRpcImpl {
@@ -137,5 +142,19 @@ impl EthRpc for EthRpcImpl {
             .cloned()
             .unwrap_or(U256::zero());
         Ok(value.to_be_bytes().into())
+    }
+
+    fn eth_call(&self, call: TransactionCall, block_number: Option<String>) -> Result<JsonBytes> {
+        let tx = EthTransaction::try_from(call)?;
+        let block_number = self
+            .loader
+            .resolve_block_number(BlockNumber::parse_with_default(&block_number)?)?;
+        let result = Runner {
+            loader: &self.loader,
+            tx: &tx,
+            block_number,
+        }
+        .call()?;
+        Ok(JsonBytes::from_bytes(result))
     }
 }

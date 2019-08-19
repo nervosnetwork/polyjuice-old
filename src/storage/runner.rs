@@ -45,19 +45,37 @@ impl<'a> Runner<'a> {
         if self.tx.to.is_none() {
             self.create_contract()
         } else {
-            let to_address = self.tx.to.clone().unwrap();
-            let to = self
-                .loader
-                .load_account(&to_address, self.block_number, false)?
-                .ok_or(Error::MalformedData(
-                    "Contract does not exist yet!".to_string(),
-                ))?;
+            let to = self.load_account()?;
             if to.contract_account()? {
                 self.call_contract(&to)
             } else {
                 self.send_to_normal_account()
             }
         }
+    }
+
+    pub fn call(&mut self) -> Result<Bytes, Error> {
+        let to = self.load_account()?;
+        if to.contract_account()? {
+            let contract_address = self.tx.to.clone().unwrap();
+            let contract_data = to.contract_data()?;
+            let (_, return_data, _) = self.call_evm(&contract_address, contract_data)?;
+            if return_data.is_none() {
+                return Err(Error::MalformedData("No output data!".to_string()));
+            }
+            Ok(Bytes::from(&*return_data.unwrap()))
+        } else {
+            Err(Error::MalformedData("Calling on EOA!".to_string()))
+        }
+    }
+
+    fn load_account(&self) -> Result<EthAccount, Error> {
+        let to_address = self.tx.to.clone().unwrap();
+        self.loader
+            .load_account(&to_address, self.block_number, false)?
+            .ok_or(Error::MalformedData(
+                "Contract does not exist yet!".to_string(),
+            ))
     }
 
     fn send_to_normal_account(&self) -> Result<Transaction, Error> {

@@ -236,6 +236,12 @@ impl BlockNumber {
 #[derive(PartialEq, Eq, Hash, Clone, Debug)]
 pub struct EthAddress(pub Bytes);
 
+impl Default for EthAddress {
+    fn default() -> Self {
+        EthAddress(Bytes::from(&[0u8; 20][..]))
+    }
+}
+
 impl EthAddress {
     pub fn parse(s: &str) -> Result<EthAddress, Error> {
         if s.len() != 42 || (!s.starts_with("0x")) {
